@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f97316">
+  <title>Nabeng Data Hub | Data Bundles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root{
+      --primary:#f97316;--primary-dark:#ea580c;--primary-soft:#fff1e7;
+      --bg:#f5f7fb;--surface:#fff;--surface-2:#f8fafc;--text:#172033;
+      --muted:#718096;--border:#e7ebf1;--success:#16a36a;--danger:#dc3545;
+      --shadow:0 12px 34px rgba(22,34,55,.07);--radius:18px;
+    }
+    body.dark{
+      --bg:#0d1422;--surface:#151f30;--surface-2:#1b293d;--text:#edf2f7;
+      --muted:#9aa9bc;--border:#29384d;--primary-soft:#3a261b;
+      --shadow:0 12px 34px rgba(0,0,0,.22);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.55;min-height:100vh;transition:background .2s,color .2s}
+    button,input,select{font:inherit}
+    button{cursor:pointer}
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(1160px,calc(100% - 36px));margin:auto}
+    .topline{background:#172033;color:#eaf0f8;font-size:12px;padding:8px 0}
+    .topline .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .topline span{display:flex;align-items:center;gap:7px}
+    .header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:40}
+    .header-inner{height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:12px;min-width:0}
+    .brand-mark{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#fb923c,#ea580c);display:grid;place-items:center;color:#fff;font-size:20px;box-shadow:0 8px 18px #f9731633}
+    .brand h1{font:800 18px Manrope,sans-serif;letter-spacing:-.5px}
+    .brand p{font-size:11px;color:var(--muted);margin-top:1px}
+    .nav{display:flex;align-items:center;gap:5px}
+    .nav button{border:0;background:transparent;color:var(--muted);padding:10px 13px;border-radius:10px;font-weight:700;font-size:13px}
+    .nav button:hover,.nav button.active{background:var(--primary-soft);color:var(--primary-dark)}
+    .header-actions{display:flex;align-items:center;gap:9px}
+    .icon-btn{width:40px;height:40px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text)}
+    .contact-btn{border:0;background:#20b86a;color:white;padding:11px 15px;border-radius:12px;font-weight:700;font-size:13px}
+    .hero{padding:32px 0 22px}
+    .hero-panel{background:linear-gradient(115deg,#18243a 0%,#253c5b 58%,#7c3b1c 100%);border-radius:24px;padding:34px 38px;color:white;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:210px}
+    .hero-panel:after{content:"";position:absolute;width:280px;height:280px;border:1px solid #ffffff20;border-radius:50%;right:10%;top:-120px;box-shadow:0 0 0 32px #ffffff08,0 0 0 65px #ffffff06}
+    .hero-copy{position:relative;z-index:1;max-width:600px}
+    .eyebrow{display:inline-flex;align-items:center;gap:7px;color:#fed7aa;font-size:11px;font-weight:800;letter-spacing:1.1px;text-transform:uppercase;margin-bottom:12px}
+    .hero h2{font:800 clamp(25px,4vw,37px) Manrope,sans-serif;line-height:1.2;letter-spacing:-1.2px;margin-bottom:10px}
+    .hero p{color:#d5deeb;font-size:14px;max-width:480px}
+    .hero-cta{display:inline-flex;align-items:center;gap:9px;background:#fb923c;color:#241307;border:0;border-radius:12px;padding:12px 17px;font-weight:800;margin-top:20px}
+    .hero-art{position:relative;z-index:1;width:170px;height:140px;display:grid;place-items:center;flex:none}
+    .hero-art i{font-size:88px;color:#ffb36e;filter:drop-shadow(0 14px 15px #0005);transform:rotate(-12deg)}
+    .trust-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0 28px}
+    .trust-item{background:var(--surface);border:1px solid var(--border);border-radius:15px;padding:14px 16px;display:flex;align-items:center;gap:12px}
+    .trust-icon{width:38px;height:38px;border-radius:12px;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;flex:none}
+    .trust-item strong{display:block;font-size:13px}.trust-item small{color:var(--muted);font-size:11px}
+    .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;margin:26px 0 16px}
+    .section-head h2{font:800 21px Manrope,sans-serif;letter-spacing:-.5px}
+    .section-head p{font-size:12px;color:var(--muted);margin-top:3px}
+    .network-list{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:17px}
+    .network-pill{display:flex;align-items:center;gap:8px;padding:10px 15px;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:12px;font-size:13px;font-weight:800;transition:.2s}
+    .network-pill:hover{border-color:var(--primary)}
+    .network-pill.active{background:var(--primary-soft);border-color:#fdba74;color:var(--primary-dark)}
+    .network-dot{width:9px;height:9px;border-radius:50%;background:#facc15}
+    [data-network="mtn"] .network-dot{background:#facc15}
+    [data-network="mtn_xpress"] .network-dot{background:#f97316}
+    [data-network="telecel"] .network-dot{background:#e11d48}
+    [data-network="at_ishare"] .network-dot{background:#ef4444}
+    .toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap}
+    .searchbox{position:relative;flex:1;min-width:210px;max-width:380px}
+    .searchbox i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px}
+    .searchbox input,.toolbar select{height:43px;border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:12px;padding:0 13px;outline:none}
+    .searchbox input{width:100%;padding-left:38px}
+    .toolbar select{min-width:155px}
+    .results-count{font-size:12px;color:var(--muted)}
+    .packages-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+    .package-card{background:var(--surface);border:1px solid var(--border);border-radius:17px;overflow:hidden;transition:transform .2s,border .2s,box-shadow .2s;position:relative;display:flex;flex-direction:column}
+    .package-card:hover{transform:translateY(-4px);border-color:#fdba74;box-shadow:var(--shadow)}
+    .package-top{height:8px;background:linear-gradient(90deg,#fb923c,#ea580c)}
+    .package-card.telecel .package-top{background:linear-gradient(90deg,#fb7185,#be123c)}
+    .package-card.airtel .package-top{background:linear-gradient(90deg,#f87171,#b91c1c)}
+    .package-card.express .package-top{background:linear-gradient(90deg,#fdba74,#ea580c)}
+    .package-inner{padding:17px;display:flex;flex-direction:column;flex:1}
+    .package-network{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);font-weight:800}
+    .package-size{font:800 27px Manrope,sans-serif;letter-spacing:-1px;margin:8px 0 2px}
+    .package-validity{font-size:11px;color:var(--muted)}
+    .package-divider{border:0;border-top:1px solid var(--border);margin:15px 0}
+    .package-price{font:800 21px Manrope,sans-serif;color:var(--primary-dark);margin-bottom:13px}
+    body.dark .package-price{color:#fb923c}
+    .buy-btn{border:0;border-radius:11px;background:var(--primary);color:#241307;padding:11px 12px;font-size:13px;font-weight:800;width:100%;margin-top:auto}
+    .buy-btn:hover,.hero-cta:hover{background:#fb923c}
+    .empty-state{grid-column:1/-1;text-align:center;background:var(--surface);border:1px dashed var(--border);padding:40px 20px;border-radius:16px;color:var(--muted)}
+    .content-section{display:none;padding:28px 0 55px}.content-section.active{display:block}
+    .panel{background:var(--surface);border:1px solid var(--border);border-radius:19px;box-shadow:var(--shadow)}
+    .status-panel{max-width:620px;margin:10px auto;padding:28px}
+    .panel-title{font:800 21px Manrope,sans-serif}
+    .panel-subtitle{font-size:13px;color:var(--muted);margin:6px 0 20px}
+    .field-label{font-size:12px;font-weight:800;display:block;margin-bottom:7px}
+    .field{width:100%;height:46px;padding:0 13px;border:1px solid var(--border);border-radius:11px;background:var(--surface-2);color:var(--text);outline:none}
+    .field:focus,.searchbox input:focus{border-color:#fb923c;box-shadow:0 0 0 3px #f973161c}
+    .status-form{display:flex;gap:9px}.status-form .field{flex:1}
+    .primary-btn{border:0;background:var(--primary);color:#241307;padding:0 18px;border-radius:11px;font-weight:800}
+    .notice{margin-top:17px;padding:13px;border-radius:12px;background:var(--primary-soft);color:var(--text);font-size:12px;line-height:1.6}
+    .status-result{display:none;margin-top:17px;padding:15px;border:1px solid var(--border);border-radius:12px;font-size:13px}
+    .status-result.show{display:block}
+    .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+    .review-card{padding:21px}
+    .stars{color:#f5a623;font-size:13px;margin-bottom:10px}
+    .review-text{font-size:13px;color:var(--muted);margin-bottom:15px}
+    .review-author{font-size:13px;font-weight:800}
+    .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .faq{padding:17px 19px}.faq strong{font-size:13px}.faq p{font-size:12px;color:var(--muted);margin-top:6px}
+    .footer{margin-top:40px;background:#172033;color:#d5deeb;padding:30px 0}
+    .footer-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+    .footer p{font-size:12px;color:#aebbd0}
+    .footer-links{display:flex;gap:16px;font-size:12px}
+    .modal-backdrop{position:fixed;inset:0;background:#0b1220b8;backdrop-filter:blur(5px);z-index:100;display:none;align-items:center;justify-content:center;padding:18px}
+    .modal-backdrop.show{display:flex}
+    .modal{width:min(460px,100%);background:var(--surface);border:1px solid var(--border);border-radius:21px;padding:25px;box-shadow:0 25px 80px #0004;position:relative;max-height:90vh;overflow:auto}
+    .modal-close{position:absolute;right:17px;top:14px;width:34px;height:34px;border:0;border-radius:10px;background:var(--surface-2);color:var(--muted);font-size:18px}
+    .modal h2{font:800 20px Manrope,sans-serif;padding-right:35px}
+    .modal-intro{font-size:12px;color:var(--muted);margin:5px 0 18px}
+    .order-summary{background:var(--surface-2);border:1px solid var(--border);border-radius:13px;padding:15px;margin-bottom:18px}
+    .summary-row{display:flex;justify-content:space-between;gap:10px;font-size:12px;margin:5px 0;color:var(--muted)}
+    .summary-row strong{color:var(--text)}
+    .summary-total{border-top:1px solid var(--border);padding-top:10px;margin-top:10px;font-size:14px}
+    .form-group{margin-bottom:14px}
+    .modal-actions{display:flex;gap:9px;margin-top:18px}
+    .modal-actions button{height:45px;flex:1}
+    .secondary-btn{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:11px;font-weight:700}
+    .form-error{color:var(--danger);font-size:11px;margin-top:6px;display:none}
+    .form-error.show{display:block}
+    @media(max-width:950px){.packages-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.nav button{padding:9px}}
+    @media(max-width:700px){
+      .wrap{width:min(100% - 26px,1160px)}.header-inner{height:auto;min-height:70px;flex-wrap:wrap;padding:12px 0}
+      .nav{order:3;width:100%;overflow:auto;border-top:1px solid var(--border);padding-top:8px}
+      .nav button{flex:1;white-space:nowrap;font-size:12px}.brand h1{font-size:16px}
+      .contact-btn{padding:10px 12px}.hero-panel{padding:27px 23px;min-height:195px}.hero-art{width:90px}.hero-art i{font-size:60px}
+      .trust-row{gap:8px}.trust-item{padding:11px 9px;gap:8px}.trust-item small{font-size:10px}.trust-icon{width:32px;height:32px}
+      .packages-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.package-inner{padding:13px}.package-size{font-size:24px}
+      .reviews-grid{grid-template-columns:1fr}.faq-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:420px){.hero-art{display:none}.trust-row{grid-template-columns:1fr}.toolbar select{flex:1}.status-form{flex-direction:column}.status-form .primary-btn{height:44px}.topline .wrap{font-size:10px}}
+  </style>
+</head>
+<body>
+  <div class="topline">
+    <div class="wrap"><span><i class="fa-solid fa-circle-check"></i> Affordable data bundles with convenient ordering</span><span><i class="fa-solid fa-headset"></i> Support: 0599581301</span></div>
+  </div>
+  <header class="header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#" aria-label="Nabeng Data Hub home">
+        <div class="brand-mark"><i class="fa-solid fa-wifi"></i></div>
+        <div><h1>Nabeng Data Hub</h1><p>Affordable · Reliable · Convenient</p></div>
+      </a>
+      <nav class="nav" aria-label="Main navigation">
+        <button class="active" data-view="shop"><i class="fa-solid fa-sim-card"></i> Buy Data</button>
+        <button data-view="status"><i class="fa-solid fa-receipt"></i> Order Status</button>
+        <button data-view="reviews"><i class="fa-solid fa-star"></i> Reviews</button>
+        <button data-view="help"><i class="fa-solid fa-circle-question"></i> Help</button>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode" title="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+        <a class="contact-btn" href="https://wa.me/233599581301" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Contact us</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="shop" class="content-section active">
+      <div class="hero">
+        <div class="hero-panel">
+          <div class="hero-copy">
+            <div class="eyebrow"><i class="fa-solid fa-bolt"></i> Stay connected for less</div>
+            <h2>Your data. Your network.<br>Better value.</h2>
+            <p>Choose a bundle, enter the recipient's number and follow the order process. Need help? Our team is one message away.</p>
+            <button class="hero-cta" id="browsePackages"><i class="fa-solid fa-arrow-down"></i> Browse data bundles</button>
+          </div>
+          <div class="hero-art"><i class="fa-solid fa-mobile-screen-button"></i></div>
+        </div>
+      </div>
+
+      <div class="trust-row">
+        <div class="trust-item"><div class="trust-icon"><i class="fa-solid fa-tags"></i></div><div><strong>Competitive prices</strong><small>Clear bundle pricing</small></div></div>
+        <div class="trust-item"><div class="trust-icon"><i class="fa-solid fa-headset"></i></div><div><strong>Helpful support</strong><small>Talk to us on WhatsApp</small></div></div>
+        <div class="trust-item"><div class="trust-icon"><i class="fa-solid fa-shield-halved"></i></div><div><strong>Order assistance</strong><small>Help when you need it</small></div></div>
+      </div>
+
+      <div id="packagesArea">
+        <div class="section-head">
+          <div><h2>Choose your data bundle</h2><p>Select a network to explore available packages.</p></div>
+          <span class="results-count" id="resultsCount"></span>
+        </div>
+        <div class="network-list" id="networkPills"></div>
+        <div class="toolbar">
+          <div class="searchbox"><i class="fa-solid fa-magnifying-glass"></i><input id="packageSearch" type="search" placeholder="Search by data size (e.g. 5GB)" aria-label="Search packages"></div>
+          <select id="sortPackages" aria-label="Sort packages">
+            <option value="default">Sort: Recommended</option><option value="price-low">Price: Low to high</option><option value="price-high">Price: High to low</option><option value="size-low">Data: Small to large</option><option value="size-high">Data: Large to small</option>
+          </select>
+        </div>
+        <div class="packages-grid" id="packagesGrid"></div>
+      </div>
+    </section>
+
+    <section id="status" class="content-section">
+      <div class="panel status-panel">
+        <h2 class="panel-title">Track your order</h2>
+        <p class="panel-subtitle">Enter the order reference supplied after placing an order.</p>
+        <form id="statusForm">
+          <label class="field-label" for="statusInput">Order reference</label>
+          <div class="status-form"><input class="field" id="statusInput" placeholder="e.g. NDH-XXXXXXXX" autocomplete="off" required><button class="primary-btn" type="submit">Check status</button></div>
+        </form>
+        <div class="status-result" id="statusResult" aria-live="polite"></div>
+        <div class="notice"><strong><i class="fa-solid fa-circle-info"></i> Live order tracking</strong><br>Enter the order reference you received after payment (starts with NDH-). Status updates automatically after successful payment.</div>
+      </div>
+    </section>
+
+    <section id="reviews" class="content-section">
+      <div class="section-head"><div><h2>Customer feedback</h2><p>Experiences shared by customers.</p></div></div>
+      <div class="reviews-grid" id="reviewsGrid"></div>
+    </section>
+
+    <section id="help" class="content-section">
+      <div class="section-head"><div><h2>How can we help?</h2><p>Quick answers about ordering data bundles.</p></div></div>
+      <div class="faq-grid">
+        <article class="panel faq"><strong>How do I buy a bundle?</strong><p>Select your network, choose a package, enter the recipient's Ghanaian phone number and continue with the available payment process.</p></article>
+        <article class="panel faq"><strong>Can I buy data for someone else?</strong><p>Yes. Enter the recipient's phone number carefully before confirming your order.</p></article>
+        <article class="panel faq"><strong>How do I get help with an order?</strong><p>Contact Nabeng Data Hub on WhatsApp at 0599581301 and provide your order reference if you have one.</p></article>
+        <article class="panel faq"><strong>What if I enter the wrong number?</strong><p>Check the number before submitting payment. Contact support immediately if you notice an error.</p></article>
+      </div>
+      <div style="text-align:center;margin-top:22px"><a class="contact-btn" href="https://wa.me/233599581301" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Chat with support</a></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div><strong style="font:800 16px Manrope">Nabeng Data Hub</strong><p style="margin-top:5px">Affordable · Reliable · Convenient</p></div>
+      <div class="footer-links"><a href="tel:0599581301">Call us</a><a href="https://wa.me/233599581301" target="_blank" rel="noopener">WhatsApp</a><a href="#" data-footer-view="help">Help & FAQ</a></div>
+      <p>© <span id="year"></span> Nabeng Data Hub. All rights reserved.<br>Powered by Affornet</p>
+    </div>
+  </footer>
+
+  <div class="modal-backdrop" id="buyModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <button class="modal-close" id="closeModal" aria-label="Close">&times;</button>
+      <h2 id="modalTitle">Complete your order</h2>
+      <p class="modal-intro">Review your bundle and enter the recipient's number.</p>
+      <div class="order-summary" id="selectedPackageInfo"></div>
+      <form id="buyForm">
+        <div class="form-group">
+          <label class="field-label" for="phoneNumber">Recipient phone number</label>
+          <input class="field" type="tel" id="phoneNumber" inputmode="numeric" maxlength="10" placeholder="e.g. 0241234567" required>
+          <div class="form-error" id="phoneError">Enter a valid 10-digit Ghanaian mobile number.</div>
+        </div>
+        <div class="form-group">
+          <label class="field-label" for="customerEmail">Email address (optional)</label>
+          <input class="field" type="email" id="customerEmail" placeholder="you@example.com">
+        </div>
+        <div class="notice"><i class="fa-solid fa-lock"></i> Secure payment via Paystack (Mobile Money & Cards). Data is delivered automatically after payment.</div>
+        <div class="modal-actions"><button type="button" class="secondary-btn" id="cancelBuy">Cancel</button><button type="submit" class="primary-btn" id="payBtn"><i class="fa-solid fa-lock"></i> Pay with Mobile Money</button></div>
+      </form>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script>
+    // ===================== CATALOGUE (live prices from datarjust) =====================
+    // Prices last synced from datarjust.com/api/bundles. Update this list when prices change.
+    const networks = [
+      {id:'mtn',name:'MTN',color:'mtn',code:'mtn'},
+      {id:'mtn_xpress',name:'Express MTN',color:'express',code:'mtn_xpress'},
+      {id:'telecel',name:'Telecel',color:'telecel',code:'telecel'},
+      {id:'at_ishare',name:'AirtelTigo iShare',color:'airtel',code:'at_ishare'}
+    ];
+    const packages = {
+      mtn:[
+        {id:1, size:'1GB', label:'MTN 1GB', price:4.50},
+        {id:2, size:'2GB', label:'MTN 2GB', price:8.80},
+        {id:3, size:'3GB', label:'MTN 3GB', price:13.00},
+        {id:4, size:'4GB', label:'MTN 4GB', price:17.00},
+        {id:5, size:'5GB', label:'MTN 5GB', price:21.00},
+        {id:6, size:'6GB', label:'MTN 6GB', price:25.00},
+        {id:7, size:'7GB', label:'MTN 7GB', price:29.00},
+        {id:8, size:'8GB', label:'MTN 8GB', price:34.00},
+        {id:9, size:'10GB', label:'MTN 10GB', price:42.00},
+        {id:11, size:'15GB', label:'MTN 15GB', price:61.00},
+        {id:12, size:'20GB', label:'MTN 20GB', price:80.00},
+        {id:13, size:'25GB', label:'MTN 25GB', price:98.50},
+        {id:14, size:'30GB', label:'MTN 30GB', price:118.00},
+        {id:15, size:'40GB', label:'MTN 40GB', price:156.00},
+        {id:16, size:'50GB', label:'MTN 50GB', price:195.00}
+      ],
+      mtn_xpress:[
+        {id:43, size:'1GB', label:'Express 1GB', price:4.50},
+        {id:44, size:'2GB', label:'Express 2GB', price:8.80},
+        {id:45, size:'3GB', label:'Express 3GB', price:13.00},
+        {id:46, size:'4GB', label:'Express 4GB', price:17.00},
+        {id:47, size:'5GB', label:'Express 5GB', price:21.00},
+        {id:48, size:'6GB', label:'Express 6GB', price:25.00},
+        {id:53, size:'7GB', label:'Express 7GB', price:30.00},
+        {id:49, size:'8GB', label:'Express 8GB', price:34.00},
+        {id:50, size:'10GB', label:'Express 10GB', price:43.00},
+        {id:51, size:'15GB', label:'Express 15GB', price:62.00},
+        {id:52, size:'20GB', label:'Express 20GB', price:83.00},
+        {id:54, size:'25GB', label:'Express 25GB', price:105.00},
+        {id:55, size:'30GB', label:'Express 30GB', price:119.00},
+        {id:56, size:'40GB', label:'Express 40GB', price:158.00},
+        {id:57, size:'50GB', label:'Express 50GB', price:197.00}
+      ],
+      telecel:[
+        {id:19, size:'10GB', label:'TELECEL 10GB', price:40.00},
+        {id:20, size:'15GB', label:'TELECEL 15GB', price:57.00},
+        {id:21, size:'20GB', label:'TELECEL 20GB', price:77.00},
+        {id:22, size:'25GB', label:'TELECEL 25GB', price:92.00},
+        {id:23, size:'30GB', label:'TELECEL 30GB', price:110.00},
+        {id:24, size:'40GB', label:'TELECEL 40GB', price:140.00},
+        {id:25, size:'50GB', label:'TELECEL 50GB', price:178.00},
+        {id:26, size:'100GB', label:'TELECEL 100GB', price:350.00}
+      ],
+      at_ishare:[
+        {id:27, size:'1GB', label:'AT-ISHARE 1GB', price:4.50},
+        {id:28, size:'2GB', label:'AT-ISHARE 2GB', price:9.00},
+        {id:29, size:'3GB', label:'AT-ISHARE 3GB', price:13.00},
+        {id:30, size:'4GB', label:'AT-ISHARE 4GB', price:17.50},
+        {id:31, size:'5GB', label:'AT-ISHARE 5GB', price:22.00},
+        {id:32, size:'6GB', label:'AT-ISHARE 6GB', price:26.00},
+        {id:33, size:'7GB', label:'AT-ISHARE 7GB', price:30.00},
+        {id:34, size:'8GB', label:'AT-ISHARE 8GB', price:35.00},
+        {id:35, size:'9GB', label:'AT-ISHARE 9GB', price:40.00},
+        {id:36, size:'10GB', label:'AT-ISHARE 10GB', price:40.00},
+        {id:61, size:'15GB', label:'AT-ISHARE 15GB', price:65.00},
+        {id:62, size:'20GB', label:'AT-ISHARE 20GB', price:76.00}
+      ]
+    };
+    // Existing review text retained from the original page.
+    const reviews=[
+      {name:'Kwame A.',stars:5,text:'Very fast delivery. Got my data in less than 2 minutes!'},
+      {name:'Ama S.',stars:5,text:'Cheapest prices I have found. Highly recommend.'},
+      {name:'Kofi M.',stars:4,text:'Reliable service. Used them 5 times already.'},
+      {name:'Efua T.',stars:5,text:'Customer service is excellent on WhatsApp.'}
+    ];
+
+    let currentNetwork='mtn';
+    let selectedPackage=null;
+    const money=value=>'GH₵'+Number(value).toFixed(2);
+    const $=id=>document.getElementById(id);
+
+    function renderNetworks(){
+      $('networkPills').innerHTML=networks.map(n=>`
+        <button class="network-pill ${n.id===currentNetwork?'active':''}" data-network="${n.id}" aria-pressed="${n.id===currentNetwork}">
+          <span class="network-dot"></span>${n.name}
+        </button>`).join('');
+      $('networkPills').querySelectorAll('button').forEach(button=>{
+        button.addEventListener('click',()=>{
+          currentNetwork=button.dataset.network;
+          renderNetworks();renderPackages();
+        });
+      });
+    }
+    function renderPackages(){
+      const query=$('packageSearch').value.trim().toLowerCase();
+      const sort=$('sortPackages').value;
+      let list=(packages[currentNetwork]||[]).map((pkg,index)=>({...pkg,index}));
+      list=list.filter(pkg=>pkg.size.toLowerCase().includes(query) || (pkg.label||'').toLowerCase().includes(query));
+      if(sort==='price-low')list.sort((a,b)=>a.price-b.price);
+      if(sort==='price-high')list.sort((a,b)=>b.price-a.price);
+      if(sort==='size-low')list.sort((a,b)=>parseFloat(a.size)-parseFloat(b.size));
+      if(sort==='size-high')list.sort((a,b)=>parseFloat(b.size)-parseFloat(a.size));
+      $('resultsCount').textContent=`${list.length} package${list.length===1?'':'s'} available`;
+      if(!list.length){
+        $('packagesGrid').innerHTML='<div class="empty-state"><i class="fa-solid fa-magnifying-glass" style="font-size:25px;margin-bottom:10px"></i><br><strong>No matching packages</strong><br><small>Try another data size or clear your search.</small></div>';
+        return;
+      }
+      const network=networks.find(n=>n.id===currentNetwork);
+      $('packagesGrid').innerHTML=list.map(pkg=>`
+        <article class="package-card ${network.color}">
+          <div class="package-top"></div>
+          <div class="package-inner">
+            <div class="package-network">${network.name}</div>
+            <div class="package-size">${pkg.size}</div>
+            <div class="package-validity"><i class="fa-solid fa-tag"></i> ${pkg.label||pkg.size}</div>
+            <hr class="package-divider">
+            <div class="package-price">${money(pkg.price)}</div>
+            <button class="buy-btn" data-index="${pkg.index}">Buy bundle <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </article>`).join('');
+      $('packagesGrid').querySelectorAll('.buy-btn').forEach(button=>{
+        button.addEventListener('click',()=>openBuyModal(Number(button.dataset.index)));
+      });
+    }
+    function renderReviews(){
+      $('reviewsGrid').innerHTML=reviews.map(review=>`
+        <article class="panel review-card">
+          <div class="stars">${'★'.repeat(review.stars)}${'☆'.repeat(5-review.stars)}</div>
+          <p class="review-text">“${review.text}”</p><div class="review-author">${review.name}</div>
+        </article>`).join('');
+    }
+    function switchView(view){
+      document.querySelectorAll('.content-section').forEach(section=>section.classList.toggle('active',section.id===view));
+      document.querySelectorAll('.nav button').forEach(button=>button.classList.toggle('active',button.dataset.view===view));
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+    document.querySelectorAll('.nav button').forEach(button=>button.addEventListener('click',()=>switchView(button.dataset.view)));
+    document.querySelectorAll('[data-footer-view]').forEach(link=>link.addEventListener('click',event=>{event.preventDefault();switchView(link.dataset.footerView)}));
+
+    function openBuyModal(index){
+      selectedPackage=packages[currentNetwork][index];
+      const network=networks.find(n=>n.id===currentNetwork);
+      $('modalTitle').textContent=`Buy ${network.name} data`;
+      $('selectedPackageInfo').innerHTML=`
+        <div class="summary-row"><span>Network</span><strong>${network.name}</strong></div>
+        <div class="summary-row"><span>Data bundle</span><strong>${selectedPackage.label||selectedPackage.size}</strong></div>
+        <div class="summary-row"><span>Size</span><strong>${selectedPackage.size}</strong></div>
+        <div class="summary-row summary-total"><span>Total to pay</span><strong>${money(selectedPackage.price)}</strong></div>`;
+      $('phoneNumber').value='';$('customerEmail').value='';$('phoneError').classList.remove('show');
+      $('buyModal').classList.add('show');$('phoneNumber').focus();
+    }
+    function closeModal(){$('buyModal').classList.remove('show')}
+    $('closeModal').addEventListener('click',closeModal);
+    $('cancelBuy').addEventListener('click',closeModal);
+    $('buyModal').addEventListener('click',event=>{if(event.target===$('buyModal'))closeModal()});
+    document.addEventListener('keydown',event=>{if(event.key==='Escape')closeModal()});
+
+    // ========== BACKEND URL ==========
+    // For local testing use localhost:3000. For production set frontend/config.js.
+    const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+      ? 'http://localhost:3000'
+      : (window.NABENG_API_BASE || '').replace(/\/$/, '');
+    function ensureApiConfigured(){
+      if(API_BASE) return true;
+      alert('Website connection is not configured yet. Please contact Nabeng Data Hub support.');
+      return false;
+    }
+
+    function validGhanaPhone(phone){return /^0[235]\d{8}$/.test(phone)}
+    function escapeHtml(value){return value.replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]))}
+
+    // ---------- Payment success handling (after Paystack redirect) ----------
+    async function handlePaymentReturn(){
+      const params = new URLSearchParams(window.location.search);
+      if(params.get('payment') !== 'success') return;
+      if(!ensureApiConfigured()) return;
+      const ref = params.get('ref');
+      if(!ref) return;
+
+      // Clean URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+
+      // Show status section
+      switchView('status');
+      $('statusInput').value = ref;
+      const result = $('statusResult');
+      result.classList.add('show');
+      result.innerHTML = `<strong><i class="fa-solid fa-spinner fa-spin"></i> Verifying payment & delivering data...</strong><br>Please wait a moment.`;
+
+      try {
+        const res = await fetch(`${API_BASE}/api/orders/verify`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ order_ref: ref })
+        });
+        const data = await res.json();
+
+        if(data.success && data.order){
+          const o = data.order;
+          const statusColor = o.status === 'delivered' ? 'var(--success)' : (['failed','delivery_failed'].includes(o.status) ? 'var(--danger)' : 'var(--primary)');
+          result.innerHTML = `
+            <div style="margin-bottom:10px"><strong style="color:${statusColor}">${o.status === 'delivered' ? '✅ Data Delivered' : o.status.toUpperCase()}</strong></div>
+            <div><strong>Reference:</strong> ${escapeHtml(o.order_ref)}</div>
+            <div><strong>Bundle:</strong> ${escapeHtml(o.label)} (${escapeHtml(o.size)})</div>
+            <div><strong>Network:</strong> ${escapeHtml(o.network)}</div>
+            <div><strong>Recipient:</strong> ${escapeHtml(o.recipient)}</div>
+            <div><strong>Amount:</strong> ${money(o.amount)}</div>
+            ${o.datarjust_reference ? `<div><strong>Delivery Ref:</strong> ${escapeHtml(o.datarjust_reference)}</div>` : ''}
+            ${(['failed','delivery_failed'].includes(o.status)) ? `<div style="color:var(--danger);margin-top:8px">${escapeHtml(o.failure_reason || 'Delivery failed. Contact support.')}</div>` : ''}
+            ${o.status === 'delivered' ? `<div style="color:var(--success);margin-top:8px">Your data has been sent successfully.</div>` : ''}
+          `;
+        } else {
+          result.innerHTML = `<strong><i class="fa-solid fa-circle-info"></i> ${escapeHtml(data.message || 'Could not verify order')}</strong><br>Reference: <strong>${escapeHtml(ref)}</strong><br>If you were charged, contact support on WhatsApp with this reference.`;
+        }
+      } catch (err) {
+        result.innerHTML = `<strong>Could not reach server.</strong><br>Reference: <strong>${escapeHtml(ref)}</strong><br>Please contact support on WhatsApp.`;
+      }
+    }
+
+    // ---------- Buy form → Paystack ----------
+    $('buyForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if(!ensureApiConfigured()) return;
+      const phone = $('phoneNumber').value.trim();
+      if (!validGhanaPhone(phone)) {
+        $('phoneError').classList.add('show');
+        $('phoneNumber').focus();
+        return;
+      }
+      $('phoneError').classList.remove('show');
+
+      const network = networks.find(n => n.id === currentNetwork);
+      const email = $('customerEmail').value.trim();
+      const payBtn = $('payBtn');
+      const originalText = payBtn.innerHTML;
+      payBtn.disabled = true;
+      payBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
+
+      try {
+        const res = await fetch(`${API_BASE}/api/orders/create`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            bundle_id: selectedPackage.id,
+            network: network.name,
+            network_code: network.code,
+            size: selectedPackage.size,
+            label: selectedPackage.label || selectedPackage.size,
+            amount: selectedPackage.price,
+            recipient: phone,
+            email: email || null
+          })
+        });
+
+        const data = await res.json();
+        if (!data.success) {
+          alert(data.message || 'Could not start payment. Please try again.');
+          payBtn.disabled = false;
+          payBtn.innerHTML = originalText;
+          return;
+        }
+
+        // Redirect to Paystack
+        closeModal();
+        window.location.href = data.authorization_url;
+      } catch (err) {
+        console.error(err);
+        alert('Network error. Please check your connection and try again.');
+        payBtn.disabled = false;
+        payBtn.innerHTML = originalText;
+      }
+    });
+
+    // ---------- Order status lookup ----------
+    $('statusForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if(!ensureApiConfigured()) return;
+      const reference = $('statusInput').value.trim();
+      const result = $('statusResult');
+      result.classList.add('show');
+      result.innerHTML = `<strong><i class="fa-solid fa-spinner fa-spin"></i> Checking...</strong>`;
+
+      try {
+        const res = await fetch(`${API_BASE}/api/orders/${encodeURIComponent(reference)}`);
+        const data = await res.json();
+
+        if (data.success && data.order) {
+          const o = data.order;
+          const statusColor = o.status === 'delivered' ? 'var(--success)' : (['failed','delivery_failed'].includes(o.status) ? 'var(--danger)' : 'var(--primary)');
+          result.innerHTML = `
+            <div style="margin-bottom:10px"><strong style="color:${statusColor}">${o.status.toUpperCase()}</strong></div>
+            <div><strong>Reference:</strong> ${escapeHtml(o.order_ref)}</div>
+            <div><strong>Bundle:</strong> ${escapeHtml(o.label)} (${escapeHtml(o.size)})</div>
+            <div><strong>Network:</strong> ${escapeHtml(o.network)}</div>
+            <div><strong>Recipient:</strong> ${escapeHtml(o.recipient)}</div>
+            <div><strong>Amount:</strong> ${money(o.amount)}</div>
+            ${o.datarjust_reference ? `<div><strong>Delivery Ref:</strong> ${escapeHtml(o.datarjust_reference)}</div>` : ''}
+            ${o.failure_reason ? `<div style="color:var(--danger);margin-top:6px">${escapeHtml(o.failure_reason)}</div>` : ''}
+          `;
+        } else {
+          result.innerHTML = `<strong><i class="fa-solid fa-circle-info"></i> Order not found</strong><br>We could not find reference <strong>${escapeHtml(reference)}</strong>. Check the number or contact support.`;
+        }
+      } catch (err) {
+        result.innerHTML = `<strong>Could not reach server.</strong><br>Please try again or contact WhatsApp support.`;
+      }
+    });
+
+    // Run payment return handler on load
+    handlePaymentReturn();
+
+    $('packageSearch').addEventListener('input',renderPackages);
+    $('sortPackages').addEventListener('change',renderPackages);
+    $('browsePackages').addEventListener('click',()=>$('packagesArea').scrollIntoView({behavior:'smooth'}));
+    $('themeToggle').addEventListener('click',()=>{
+      document.body.classList.toggle('dark');
+      const dark=document.body.classList.contains('dark');
+      $('themeToggle').innerHTML=dark?'<i class="fa-solid fa-sun"></i>':'<i class="fa-solid fa-moon"></i>';
+      $('themeToggle').setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');
+      try{localStorage.setItem('ndh-theme',dark?'dark':'light')}catch(error){}
+    });
+    try{if(localStorage.getItem('ndh-theme')==='dark'){document.body.classList.add('dark');$('themeToggle').innerHTML='<i class="fa-solid fa-sun"></i>'}}catch(error){}
+    $('year').textContent=new Date().getFullYear();
+    renderNetworks();renderPackages();renderReviews();
+  </script>
+</body>
+</html>
